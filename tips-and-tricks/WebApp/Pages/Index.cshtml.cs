@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Models;
 
 namespace WebApp.Pages
 {
@@ -19,7 +20,9 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
-
+            ViewData["Quote"] = QuoteOfTheDay.Current.Quote;
+            ViewData["Author"] = QuoteOfTheDay.Current.Author;
+            ViewData["FetchedTime"] = QuoteOfTheDay.Current.FetchedTime;
         }
     }
 }

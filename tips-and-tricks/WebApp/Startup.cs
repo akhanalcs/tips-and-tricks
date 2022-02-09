@@ -9,7 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Interfaces;
 using WebApp.Models;
+using WebApp.Scheduling;
+using WebApp.Scheduling.Tasks;
 
 namespace WebApp
 {
@@ -32,6 +35,14 @@ namespace WebApp
             services.AddDbContextPool<AppDbContext>(options => // The pool caches the instance of AppDbContext, so it doesn't have to create everytime
             {
                 options.UseSqlite(Configuration.GetConnectionString("WebAppConnection")); 
+            });
+
+            // Add scheduled tasks & scheduler
+            services.AddSingleton<IScheduledTask, QuoteOfTheDayTask>();
+            services.AddScheduler((sender, args) =>
+            {
+                Console.Write(args.Exception.Message);
+                args.SetObserved();
             });
         }
 

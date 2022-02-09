@@ -5,6 +5,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Scheduling in .NET core.</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        Quote:
+        <blockquote>
+            @ViewBag.Quote
+            @ViewBag.Author
+        </blockquote>
+        <p>This quote was fetched at: @ViewBag.FetchedTime?.ToString("HH:mm")</p>
+    </div>
 </div>
