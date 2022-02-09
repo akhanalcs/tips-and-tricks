@@ -42,9 +42,21 @@ namespace WebApp.Models
                         Price = 48.95m
                     }
                 );
-
-                context.SaveChanges();
             }
+
+            if (!context.Logs.Any())
+            {
+                context.Logs.AddRange(
+                    new Log
+                    {
+                        Level = "ERROR",
+                        Message = "Seed Message",
+                        TimeStamp = DateTime.Now
+                    }
+                );
+            }
+
+            context.SaveChanges();
         }
     }
 }
