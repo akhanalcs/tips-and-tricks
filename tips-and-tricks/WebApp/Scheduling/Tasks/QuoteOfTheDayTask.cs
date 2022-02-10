@@ -17,12 +17,21 @@ namespace WebApp.Scheduling.Tasks
 
         public async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var httpClient = new HttpClient();
+            try
+            {
+                var httpClient = new HttpClient();
 
-            var quoteJson = JObject.Parse(await httpClient.GetStringAsync("http://quotes.rest/qod.json"));
+                //var quoteJson = JObject.Parse(await httpClient.GetStringAsync("http://quotes.rest/qod.json"));
+                // QuoteOfTheDay.Current = JsonConvert.DeserializeObject<QuoteOfTheDay>(quoteJson["contents"]["quotes"][0].ToString());
 
-            QuoteOfTheDay.Current = JsonConvert.DeserializeObject<QuoteOfTheDay>(quoteJson["contents"]["quotes"][0].ToString());
-            QuoteOfTheDay.Current.FetchedTime = DateTime.Now;
+                QuoteOfTheDay.Current.Quote = $"Some fancy quote fetched from some API.";
+                QuoteOfTheDay.Current.FetchedTime = DateTime.Now;
+            }
+            catch (Exception ex)
+            {
+                QuoteOfTheDay.Current.Quote = $"Something went wrong while calling the Quotes API. The exception message is: {ex.Message}.";
+                QuoteOfTheDay.Current.FetchedTime = DateTime.Now;
+            }
         }
     }
 }

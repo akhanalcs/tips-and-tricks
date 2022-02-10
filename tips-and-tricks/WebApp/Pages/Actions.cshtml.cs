@@ -5,19 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace WebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class ActionsModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<ActionsModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public ActionsModel(ILogger<ActionsModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
+            _logger.LogInformation("Actions page called.");
         }
     }
 }

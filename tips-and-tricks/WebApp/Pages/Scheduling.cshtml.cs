@@ -5,21 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Models;
 
 namespace WebApp.Pages
 {
-    public class PrivacyModel : PageModel
+    public class SchedulingModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<SchedulingModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public SchedulingModel(ILogger<SchedulingModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
-            _logger.LogInformation("Privacy page called.");
+            ViewData["Quote"] = QuoteOfTheDay.Current.Quote;
+            ViewData["FetchedTime"] = QuoteOfTheDay.Current.FetchedTime;
         }
     }
 }

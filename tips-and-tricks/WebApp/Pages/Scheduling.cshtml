@@ -1,0 +1,27 @@
+﻿@page
+@model SchedulingModel
+@{
+    ViewData["Title"] = "Scheduling";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Scheduling in .NET core</h1>
+    <h6>This Quote fetch task runs on a CRON style schedule. It's currently set to: "* * * * *" which means that it runs every minute.</h6>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Quote:</h5>
+        @if (ViewBag.FetchedTime != null)
+        {
+            <blockquote>
+                @ViewBag.Quote
+            </blockquote>
+            <p>This quote was fetched at: @string.Format("{0:F}", ViewBag.FetchedTime)</p>
+        }
+        else
+        {
+            <p>The quote hasn't been fetched yet.</p>
+        }
+    </div>
+</div>

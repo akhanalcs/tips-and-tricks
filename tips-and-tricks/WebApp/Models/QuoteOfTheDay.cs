@@ -11,11 +11,10 @@ namespace WebApp.Models
 
         static QuoteOfTheDay()
         {
-            Current = new QuoteOfTheDay { Quote = "There's no quote fetched at this time", Author = "Ashish", FetchedTime = null };
+            Current = new QuoteOfTheDay();
         }
 
         public string Quote { get; set; }
-        public string Author { get; set; }
         public DateTime? FetchedTime { get; set; }
     }
 }
