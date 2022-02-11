@@ -8,6 +8,16 @@ namespace WebApp.Models
 {
     public class Log
     {
+        /*
+        [Id] int IDENTITY(1,1) NOT NULL,
+        [Message] nvarchar(max) NULL,
+        [MessageTemplate] nvarchar(max) NULL,
+        [Level] nvarchar(128) NULL,
+        [TimeStamp] datetime NOT NULL,
+        [Exception] nvarchar(max) NULL,
+        [Properties] nvarchar(max) NULL
+        */
+
         public int Id { get; set; }
         [Column(TypeName = "VARCHAR(500)")]
         public string Message { get; set; }

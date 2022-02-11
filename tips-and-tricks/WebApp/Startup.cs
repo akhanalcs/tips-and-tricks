@@ -13,6 +13,7 @@ using WebApp.Interfaces;
 using WebApp.Models;
 using WebApp.Scheduling;
 using WebApp.Scheduling.Tasks;
+using WebApp.Services;
 
 namespace WebApp
 {
@@ -32,10 +33,14 @@ namespace WebApp
             //I got help from here: https://stackoverflow.com/a/40838891/8644294
             //run 'dotnet ef database update' to create this database.
             // OR context.Database.EnsureCreated() in the SeedData class takes care of this.
-            services.AddDbContextPool<AppDbContext>(options => // The pool caches the instance of AppDbContext, so it doesn't have to create everytime
+            services.AddDbContext<AppDbContext>(options => // Originally it was: AddDbContextPool. The pool caches the instance of AppDbContext, so it doesn't have to create everytime
             {
                 options.UseSqlite(Configuration.GetConnectionString("WebAppConnection")); 
-            });
+            }, ServiceLifetime.Singleton);
+
+            // AddScoped because we want Instance of EFStoreRepository to be alive through the entire scope of the HttpRequest.
+            // New instance is created for every Http request, and lives theoughout the scope of that HttpRequest.
+            services.AddSingleton<IAppRepository, EFAppRepository>(); // Letting know that EFAppRepository implements IAppRepository.
 
             // Add scheduled tasks & scheduler
             services.AddSingleton<IScheduledTask, QuoteOfTheDayTask>();

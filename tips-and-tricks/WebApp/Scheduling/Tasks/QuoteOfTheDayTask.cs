@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,15 @@ namespace WebApp.Scheduling.Tasks
 {
     public class QuoteOfTheDayTask : IScheduledTask
     {
+        private readonly ILogger<QuoteOfTheDayTask> _logger;
+        private readonly IAppRepository _appRepository;
+
+        public QuoteOfTheDayTask(ILogger<QuoteOfTheDayTask> logger, IAppRepository appRepository)
+        {
+            _appRepository = appRepository;
+            _logger = logger;
+        }
+
         public string Schedule => "* * * * *"; // Scheduled at every minute
 
         public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -26,6 +36,16 @@ namespace WebApp.Scheduling.Tasks
 
                 QuoteOfTheDay.Current.Quote = $"Some fancy quote fetched from some API.";
                 QuoteOfTheDay.Current.FetchedTime = DateTime.Now;
+
+                _logger.LogInformation("Quote fetch method called.");
+                var log = new Log
+                {
+                    Level = "INFORMATION",
+                    Message = "Quote fetch method called.",
+                    TimeStamp = DateTime.Now
+                };
+
+                _appRepository.CreateLog(log);
             }
             catch (Exception ex)
             {

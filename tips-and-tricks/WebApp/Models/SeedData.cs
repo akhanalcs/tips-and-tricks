@@ -44,19 +44,41 @@ namespace WebApp.Models
                 );
             }
 
-            if (!context.Logs.Any())
-            {
-                context.Logs.AddRange(
-                    new Log
-                    {
-                        Level = "ERROR",
-                        Message = "Seed Message",
-                        TimeStamp = DateTime.Now
-                    }
-                );
-            }
+            //if (!context.Logs.Any())
+            //{
+            //    context.Logs.AddRange(
+            //        new Log
+            //        {
+            //            Level = "ERROR",
+            //            Message = "Seed Message",
+            //            TimeStamp = DateTime.Now
+            //        }
+            //    );
+            //}
 
             context.SaveChanges();
         }
+
+        //public static void ReadSqliteDbTables()
+        //{
+        //    var connectionStringBuilder = new SqliteConnectionStringBuilder();
+        //    connectionStringBuilder.DataSource = "../WebApp.db";
+
+        //    using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionString))
+        //    {
+        //        connection.Open();
+        //        var selectCmd = connection.CreateCommand();
+        //        selectCmd.CommandText = "SELECT name FROM sqlite_schema WHERE type = 'table' ORDER BY name;";
+
+        //        using (var reader = selectCmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                var message = reader.GetString(0);
+        //                Console.WriteLine(message);
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

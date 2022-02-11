@@ -12,5 +12,9 @@ namespace WebApp.Interfaces
         void SaveProduct(Product p);
         void CreateProduct(Product p);
         void DeleteProduct(Product p);
+
+        IQueryable<Log> Logs { get; }
+        void CreateLog(Log l);
+        void ClearLogs();
     }
 }

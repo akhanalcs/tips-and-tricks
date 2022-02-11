@@ -50,8 +50,8 @@
         <div class="card">
             <div class="card-header">Type 1 Actions</div>
             <div class="card-body">
-                <button id="service-call-button" class="btn btn-primary mt-2">Get Service Call Log</button>
-
+                <button id="actions-page-logs-get-button" class="btn btn-primary mt-2">Get Actions Page-Call Logs</button>
+                <button id="scheduling-method-logs-get-button" class="btn btn-primary mt-2">Get Scheduling Method-Call Logs</button>
                 @*<div class="row">
                         <div class="col-12">
                             <p class="font-weight-bold font-italic mb-2">Text Input</p>
@@ -93,7 +93,7 @@
         <div class="card" style="height: 100%;">
             <div class="card-header">Type 2 Actions</div>
             <div class="card-body">
-                Nothing at the moment.
+                <button id="all-logs-delete-button" class="btn btn-primary mt-2">Delete All Logs</button>
             </div>
         </div>
     </div>
@@ -129,8 +129,14 @@
                 }
 
                 var url = "";
-                if (this.id == 'service-call-button') {
-                    url += './AJAXPages/ServiceCallResult';
+                if (this.id == 'actions-page-logs-get-button') {
+                    url += './AJAXPages/ServiceCallResult?actionFlag=getActionsPageLogs';
+                }
+                else if (this.id == 'scheduling-method-logs-get-button') {
+                    url += './AJAXPages/ServiceCallResult?actionFlag=getSchedulingMethodLogs';
+                }
+                else if (this.id == 'all-logs-delete-button') {
+                    url += './AJAXPages/ServiceCallResult?actionFlag=deleteAllLogs';
                 }
                 urlGet(url);
             });
@@ -148,7 +154,13 @@
                 + '</span></li > ');
         }
 
-        function isUndef(val) { return typeof val === 'undefined'; }
+        function isUndef(val) {
+            return typeof val === 'undefined';
+        }
+
+        function isEmpty(array) {
+            return array === undefined || array.length == 0;
+        }
 
         function urlGet(url) {
             var dateStart = new Date();
@@ -171,11 +183,14 @@
                     }
                     else {
                         ok = data.success;
-                        msg = '<br/>';
-                        if (data.log) {
-                            msg += data.log.join('<br/>');
+                        msg='';
+                        if (!isEmpty(data.log)) {
+                            msg += 'Logs:' + '<br/>' + data.log.join('<br/>') + '<br/>';
                         }
-                        msg += '<br/>' + 'Duration: ' + (new Date() - dateStart).toLocaleString() + ' ms';
+                        else {
+                            msg += 'No logs available.' + '<br/>';
+                        }
+                        msg += 'Duration: ' + (new Date() - dateStart).toLocaleString() + ' ms';
                     }
                     logMsg(msg, localSeqNum, ok);
                 },
