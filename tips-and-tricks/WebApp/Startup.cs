@@ -33,17 +33,20 @@ namespace WebApp
             //I got help from here: https://stackoverflow.com/a/40838891/8644294
             //run 'dotnet ef database update' to create this database.
             // OR context.Database.EnsureCreated() in the SeedData class takes care of this.
-            services.AddDbContext<AppDbContext>(options => // Originally it was: AddDbContextPool. The pool caches the instance of AppDbContext, so it doesn't have to create everytime
-            {
-                options.UseSqlite(Configuration.GetConnectionString("WebAppConnection")); 
-            }, ServiceLifetime.Singleton);
+            //services.AddDbContextPool<AppDbContext>(options => // Originally it was: AddDbContextPool. The pool caches the instance of AppDbContext, so it doesn't have to create everytime
+            //{
+            //    options.UseSqlite(Configuration.GetConnectionString("WebAppConnection")); 
+            //});
 
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("WebAppConnection")), ServiceLifetime.Transient, ServiceLifetime.Singleton);
             // AddScoped because we want Instance of EFStoreRepository to be alive through the entire scope of the HttpRequest.
             // New instance is created for every Http request, and lives theoughout the scope of that HttpRequest.
-            services.AddSingleton<IAppRepository, EFAppRepository>(); // Letting know that EFAppRepository implements IAppRepository.
+            //services.AddScoped<IAppRepository, EFAppRepository>(); // Letting know that EFAppRepository implements IAppRepository.
+            services.AddSingleton<IAppRepository, InMemoryAppRepository>();
 
             // Add scheduled tasks & scheduler
             services.AddSingleton<IScheduledTask, QuoteOfTheDayTask>();
+            services.AddSingleton<IScheduledTask, ClearLogsTask>();
             services.AddScheduler((sender, args) =>
             {
                 Console.Write(args.Exception.Message);
@@ -77,7 +80,7 @@ namespace WebApp
                 endpoints.MapRazorPages();
             });
 
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
         }
     }
 }

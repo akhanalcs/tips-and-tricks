@@ -46,6 +46,7 @@ namespace WebApp.Scheduling.Tasks
                 };
 
                 _appRepository.CreateLog(log);
+                await Task.CompletedTask;
             }
             catch (Exception ex)
             {
