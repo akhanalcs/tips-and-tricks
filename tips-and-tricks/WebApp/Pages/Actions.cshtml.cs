@@ -21,6 +21,10 @@ namespace WebApp.Pages
             _logger = logger;
         }
 
+        //Now I'll be calling this page from Azure Functions.
+        //And one of the best thing about using Azure Functions is that it's essentially free for simple cases like this!
+        //Azure Functions uses a "consumption" based model, which means we only get charged when our function is running.
+        //We get a free quota of 1 million executions a month, so we can go a long way for free.
         public void OnGet()
         {
             _logger.LogInformation("Actions page called.");

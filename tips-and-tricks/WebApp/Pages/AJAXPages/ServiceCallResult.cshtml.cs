@@ -30,14 +30,14 @@ namespace WebApp.Pages.AJAXPages
                 case "getActionsPageLogs":
                     logs = _appRepository.Logs
                             .Where(l => l.Message == "Actions page called.")
-                            .Select(l => $"Log Level: {l.Level}, Message: {l.Message}, Logged Time: {string.Format("{0:F}", l.TimeStamp)}")
+                            .Select(l => $"Log Level: {l.Level} | Message: {l.Message} | Logged Time: {string.Format("{0:F}", l.TimeStamp)}")
                             .ToList();
                     break;
 
                 case "getSchedulingMethodLogs":
                     logs = _appRepository.Logs
                             .Where(l => l.Message == "Quote fetch method called.")
-                            .Select(l => $"Log Level: {l.Level}, Message: {l.Message}, Logged Time: {string.Format("{0:F}", l.TimeStamp)}")
+                            .Select(l => $"Log Level: {l.Level} | Message: {l.Message} | Logged Time: {string.Format("{0:F}", l.TimeStamp)}")
                             .ToList();
                     break;
 
