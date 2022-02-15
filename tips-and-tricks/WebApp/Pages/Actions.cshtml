@@ -3,7 +3,22 @@
 @{
     ViewData["Title"] = "AJAX Calls using Razor Pages";
 }
-<h5>This page shows AJAX calls using Razor pages.</h5>
+
+<div class="text-center">
+    <h1 class="display-4">Azure Functions Scheduling</h1>
+    <h5>
+        This page is called by Azure Functions every minute which can be seen from Type 1 logs.
+    </h5>
+</div>
+
+<p>&nbsp;</p>
+<hr />
+
+<div>
+    <h2>View Logs using AJAX Calls</h2>
+</div>
+
+<p>&nbsp;</p>
 
 <style>
     #console-div {
@@ -15,30 +30,30 @@
         padding: 0;
     }
 
-    #log span.dateTm {
-        padding-right: 0.5rem;
-        font-size: small;
-        color: white;
-    }
+        #log span.dateTm {
+            padding-right: 0.5rem;
+            font-size: small;
+            color: white;
+        }
 
-    #log span.seqNum {
-        margin-right: 0.5rem;
-        font-weight: bold;
-        color: yellow;
-    }
+        #log span.seqNum {
+            margin-right: 0.5rem;
+            font-weight: bold;
+            color: yellow;
+        }
 
-    #log span.ok {
-        color: limegreen;
-    }
+        #log span.ok {
+            color: limegreen;
+        }
 
-    #log span.fail {
-        color: red;
-    }
+        #log span.fail {
+            color: red;
+        }
 
-    #log li {
-        line-height: 1.125;
-        margin-bottom: 1rem;
-    }
+        #log li {
+            line-height: 1.125;
+            margin-bottom: 1rem;
+        }
 
     .card-body a {
         margin-bottom: 0.5rem;
@@ -51,7 +66,6 @@
             <div class="card-header">Type 1 Actions</div>
             <div class="card-body">
                 <button id="actions-page-logs-get-button" class="btn btn-primary mt-2">Get Actions Page-Call Logs</button>
-                <button id="scheduling-method-logs-get-button" class="btn btn-primary mt-2">Get Scheduling Method-Call Logs</button>
                 @*<div class="row">
                         <div class="col-12">
                             <p class="font-weight-bold font-italic mb-2">Text Input</p>
@@ -68,9 +82,9 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header">Type 1 Sub-Actions</div>
+            <div class="card-header">Type 2 Actions</div>
             <div class="card-body">
-                Nothing at the moment.
+                <button id="scheduling-method-logs-get-button" class="btn btn-primary mt-2">Get Scheduling Method-Call Logs</button>
                 @*<a asp-page="./Privacy" asp-route-id="" id="subAction1Button" class="btn btn-primary"><i class="fa fa-edit"></i>Subaction 1 Button</a>
                     <div class="row">
                         <div class="col-12">
@@ -91,7 +105,7 @@
     </div>
     <div class="col-md-6 mt-6">
         <div class="card" style="height: 100%;">
-            <div class="card-header">Type 2 Actions</div>
+            <div class="card-header">Type 3 Actions</div>
             <div class="card-body">
                 <button id="all-logs-delete-button" class="btn btn-primary mt-2">Delete All Logs</button>
             </div>
@@ -183,7 +197,7 @@
                     }
                     else {
                         ok = data.success;
-                        msg='';
+                        msg = '';
                         if (!isEmpty(data.log)) {
                             msg += 'Logs:' + '<br/>' + data.log.join('<br/>') + '<br/>';
                         }
