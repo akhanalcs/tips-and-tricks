@@ -19,7 +19,7 @@ namespace WebApp.Scheduling.Tasks
             _logger = logger;
         }
 
-        public string Schedule => "*/10 * * * *"; // Scheduled at every 10th minute.
+        public string Schedule => "*/30 * * * *"; // Scheduled at every 30th minute.
 
         public async Task ExecuteAsync(CancellationToken cancellationToken)
         {
