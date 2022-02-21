@@ -16,11 +16,13 @@ namespace WebApp.Scheduling.Tasks
     {
         private readonly ILogger<QuoteOfTheDayTask> _logger;
         private readonly IAppRepository _appRepository;
+        private readonly ILogPusher _logsPusher;
 
-        public QuoteOfTheDayTask(ILogger<QuoteOfTheDayTask> logger, IAppRepository appRepository)
+        public QuoteOfTheDayTask(ILogger<QuoteOfTheDayTask> logger, IAppRepository appRepository, ILogPusher logsPusher)
         {
             _appRepository = appRepository;
             _logger = logger;
+            _logsPusher = logsPusher;
         }
 
         public string Schedule => "* * * * *"; // Scheduled at every minute
@@ -46,7 +48,8 @@ namespace WebApp.Scheduling.Tasks
                 };
 
                 _appRepository.CreateLog(log);
-                await Task.CompletedTask;
+                await _logsPusher.SendLogAsync($"Log Level: {log.Level} | Message: {log.Message} | Logged Time: {string.Format("{0:F}", log.TimeStamp)}");
+                //await Task.CompletedTask;
             }
             catch (Exception ex)
             {

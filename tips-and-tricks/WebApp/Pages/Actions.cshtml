@@ -7,7 +7,7 @@
 <div class="text-center">
     <h1 class="display-4">Azure Functions Scheduling</h1>
     <h5>
-        This page is called by Azure Functions every minute which can be seen from Type 1 logs.
+        This page is called by Azure Functions every minute which can be seen from Type 1 logs OR simply waiting and seeing the logs appearing in the console that are pushed by SignalR hub.
     </h5>
 </div>
 
@@ -33,13 +33,13 @@
         #log span.dateTm {
             padding-right: 0.5rem;
             font-size: small;
-            color: rgb(0, 191, 255);
+            color: white;
         }
 
         #log span.seqNum {
             margin-right: 0.5rem;
             font-weight: bold;
-            color: white;
+            color: yellow;
         }
 
         #log span.ok {
@@ -133,9 +133,9 @@
         var seqNum = 1;
 
         $(document).ready(function () {
+            //Registering click handlers after jQuery loads
             $('.my-row-actions').on('click', 'button', function (event) {
                 event.preventDefault();
-                console.log("hey");
 
                 if (this.id == 'console-clear-btn') {
                     logClear();
@@ -156,7 +156,12 @@
             });
         });
 
-        function logClear() { $('#log').html(''); }
+        /* --- Methods that can simpy load on Page load but not necessarily execute. --- */
+        function logClear() 
+        { 
+            console.log('Log console clear method called.');
+            $('#log').html(''); 
+        }
 
         function logMsg(msg, seqNum, success) {
             if (isUndef(seqNum)) seqNum = 0;
@@ -176,6 +181,11 @@
             return array === undefined || array.length == 0;
         }
 
+        function isStringNullOrEmpty(myString) {
+            return !myString;
+        }
+
+        /* --- Get Method --- */
         function urlGet(url) {
             var dateStart = new Date();
             var localSeqNum = seqNum++;
@@ -216,4 +226,8 @@
             });
         }
     </script>
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    @*Registering SignalR methods after SignalR loads*@
+    <script src="~/js/logs.js"></script>
 }

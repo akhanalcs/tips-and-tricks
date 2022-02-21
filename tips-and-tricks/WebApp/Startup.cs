@@ -30,6 +30,8 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSignalR();
+
             //I got help from here: https://stackoverflow.com/a/40838891/8644294
             //run 'dotnet ef database update' to create this database.
             // OR context.Database.EnsureCreated() in the SeedData class takes care of this.
@@ -43,6 +45,8 @@ namespace WebApp
             // New instance is created for every Http request, and lives theoughout the scope of that HttpRequest.
             //services.AddScoped<IAppRepository, EFAppRepository>(); // Letting know that EFAppRepository implements IAppRepository.
             services.AddSingleton<IAppRepository, InMemoryAppRepository>();
+
+            services.AddSingleton<ILogPusher, LogPusher>();
 
             // Add scheduled tasks & scheduler
             services.AddSingleton<IScheduledTask, QuoteOfTheDayTask>();
@@ -77,6 +81,7 @@ namespace WebApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<LogPusher>("/realTimeLogs");
                 endpoints.MapRazorPages();
             });
 
