@@ -25,6 +25,8 @@
        After that, you can wait for few minutes and click <strong><em>Get Actions Page-Call Logs</em></strong> button to see all the calls made by the Azure function.</p>
 
     <p><strong>OR</strong> you can simply <em>wait and see</em> the logs being pushed to the console in real-time from <strong>SignalR</strong> hub.</p>
+
+    <p>To view Functions logs, add Application Insights resource to it, as shown <a href="https://docs.microsoft.com/en-us/azure/azure-functions/streaming-logs#built-in-log-streaming">here</a>.</p>
     <p>I believe this can even replace Autosys jobs, so that we can have one single repository for application code and scheduling code (as opposed to managing Autosys jobs and its PowerShell script).</p>
 
     <p>Note for SignalR deployment: Don't forget to <strong>enable Web sockets</strong> in the App Service as shown below:</p>
