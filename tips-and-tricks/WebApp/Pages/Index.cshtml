@@ -27,6 +27,20 @@
     <p><strong>OR</strong> you can simply <em>wait and see</em> the logs being pushed to the console in real-time from <strong>SignalR</strong> hub.</p>
     <p>I believe this can even replace Autosys jobs, so that we can have one single repository for application code and scheduling code (as opposed to managing Autosys jobs and its PowerShell script).</p>
 
+    <p>Note for SignalR deployment: Don't forget to <strong>enable Web sockets</strong> in the App Service as shown below:</p>
+    <img src="/images/EnableWebSockets.png" alt="Enable Web sockets in Azure App Service" style="width: 100%;max-height: 100%" />
+
+    <p style="margin-top: 5px;">If you see following JavaScript console error: </p>
+    <p>
+        <code>
+            <strong>
+                Error: Failed to start the transport 'WebSockets': Error: WebSocket failed to connect. The connection could not be found on the server, either the endpoint may not be a SignalR endpoint, the connection ID is not present on the server, or there is a proxy blocking WebSockets. If you have multiple servers check that sticky sessions are enabled.
+            </strong>
+        </code>
+    </p>
+    <p>and yet SignalR works fine outside company network, the issue is that the company proxy is blocking web sockets, in which case it's best to work with network team to enable websockets in proxy server.
+        <a href="https://stackoverflow.com/a/68732723/8644294">Source</a></p>
+
     <p>&nbsp;</p>
     <hr />
 

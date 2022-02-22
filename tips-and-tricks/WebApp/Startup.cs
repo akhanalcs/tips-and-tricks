@@ -30,7 +30,10 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddSignalR();
+            services.AddSignalR(hubOptions =>
+            {
+                hubOptions.EnableDetailedErrors = true;
+            });
 
             //I got help from here: https://stackoverflow.com/a/40838891/8644294
             //run 'dotnet ef database update' to create this database.
