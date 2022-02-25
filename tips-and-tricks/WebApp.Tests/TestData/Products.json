@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Lifejacket",
+    "Description": "Protective and fashionable",
+    "Category": "Watersports",
+    "Price": "48.95m"
+  },
+  {
+    "Name": "Kayak",
+    "Description": "A boat for one person",
+    "Category": "Watersports",
+    "Price": "275m"
+  }
+]
