@@ -18,6 +18,8 @@ namespace WebApp.Pages
 
         public void OnGet()
         {
+            // This should push the log into SQLite Database, but it doesn't :(
+            _logger.LogInformation("Home page called.");
         }
     }
 }

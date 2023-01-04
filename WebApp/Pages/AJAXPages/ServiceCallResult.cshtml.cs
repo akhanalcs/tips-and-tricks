@@ -26,7 +26,7 @@ namespace WebApp.Pages.AJAXPages
 
             switch (actionFlag)
             {
-                case "getActionsPageLogs":
+                case "getPageLogs":
                     logs = _appRepository.Logs
                             .Where(l => l.Message == "Actions page called.")
                             .Select(l => $"Log Level: {l.Level} | Message: {l.Message} | Logged Time: {string.Format("{0:F}", l.TimeStamp)}")
