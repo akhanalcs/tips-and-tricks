@@ -17,6 +17,7 @@ namespace WebApp.Scheduling.Tasks
         private readonly ILogger<QuoteOfTheDayTask> _logger;
         private readonly IAppRepository _appRepository;
         private readonly ILogPusher _logsPusher;
+        private int _count = 0;
 
         public QuoteOfTheDayTask(ILogger<QuoteOfTheDayTask> logger, IAppRepository appRepository, ILogPusher logsPusher)
         {
@@ -31,12 +32,12 @@ namespace WebApp.Scheduling.Tasks
         {
             try
             {
-                var httpClient = new HttpClient();
+                //var httpClient = new HttpClient();
 
                 //var quoteJson = JObject.Parse(await httpClient.GetStringAsync("http://quotes.rest/qod.json"));
                 // QuoteOfTheDay.Current = JsonConvert.DeserializeObject<QuoteOfTheDay>(quoteJson["contents"]["quotes"][0].ToString());
-
-                QuoteOfTheDay.Current.Quote = $"Some fancy quote fetched from some API.";
+                ++_count;
+                QuoteOfTheDay.Current.Quote = $"#{_count}. Some fancy quote fetched from some API.";
                 QuoteOfTheDay.Current.FetchedTime = DateTime.Now;
 
                 _logger.LogInformation("Quote fetch method called.");
@@ -48,7 +49,7 @@ namespace WebApp.Scheduling.Tasks
                 };
 
                 _appRepository.CreateLog(log);
-                await _logsPusher.SendLogAsync($"Log Level: {log.Level} | Message: {log.Message} | Logged Time: {string.Format("{0:F}", log.TimeStamp)}");
+                //await _logsPusher.SendLogAsync($"Log Level: {log.Level} | Message: {log.Message} | Logged Time: {string.Format("{0:F}", log.TimeStamp)}");
                 //await Task.CompletedTask;
             }
             catch (Exception ex)
