@@ -48,14 +48,3 @@ Next -> Service Principal (Automatic)
 <img src="https://user-images.githubusercontent.com/30603497/159368901-66a7a1bc-b501-4d7a-b59a-0d08bb35e9a8.png" style="width: 30%;max-height: 20%" />
 
 <img src="https://user-images.githubusercontent.com/30603497/159512090-069eeef0-2c39-4f9e-b066-28be97ed694d.png" style="width: 50%;max-height: 50%" />
-
-
-
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
-
-### Step 7
-Create a pipeline
